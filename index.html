@@ -3,17 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Bersxrkinfo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: sans-serif;
+  font-family: 'Prompt', sans-serif;
   position: relative;
   overflow: hidden;
 }
+.announcement-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+  padding: 8px 0;
+  z-index: 1000;
+  overflow: hidden;
+}
 
-/* container ภาพพื้นหลัง */
+.announcement-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scrollText 10s linear infinite;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
 .background-image {
   position: fixed;
   top: 0; left: 0;
@@ -23,73 +49,169 @@ body, html {
   overflow: hidden;
 }
 
-/* ภาพพื้นหลัง */
 .background-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1; /* <<<<< ปรับ Transparency ของภาพ (0-1) */
+  opacity: 1;
 }
 
-/* overlay เพิ่มความมืดจาง ๆ */
 .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.2); /* สีดำโปร่งใส (optional) */
+  background-color: rgba(0,0,0,0.2);
   z-index: -1;
 }
 
-/* ปุ่มอยู่กลางจอ */
 .container {
   position: relative;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
-}
-
-/* ปุ่ม */
-.button-link {
-  padding: 14px 28px;
-  background-color: #005ec2;
+  text-align: center;
   color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 19px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  animation: pulse 2s infinite;
 }
 
-/* อนิเมชัน pulse */
+.title-text {
+  font-family: 'Kanit', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  animation: electricGlow 1.5s infinite alternate;
+}
+
+.button-link {
+  font-family: 'Kanit', sans-serif;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #005ec2, #003b88);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  animation: pulse 2s infinite;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 2px solid #ffffff44;
+}
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 
-/* hover ขยายเพิ่ม */
 .button-link:hover {
-  background-color: #004c9e;
-  transform: scale(1.1);
+  background: linear-gradient(135deg, #004c9e, #002f6c);
+  transform: scale(1.12);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.button-link.clicked {
+  animation: clickEffect 0.6s forwards;
+}
+
+@keyframes clickEffect {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  30% { transform: scale(0.9) rotate(5deg); opacity: 0.8; }
+  60% { transform: scale(1.1) rotate(-5deg); opacity: 0.5; }
+  100% { transform: scale(0) rotate(0deg); opacity: 0; }
+}
+
+.blackout-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+.blackout-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.discord-button {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1100;
+  background-color: #5865F2;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.discord-button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.7);
+}
+.discord-button svg {
+  width: 26px;
+  height: 26px;
+  fill: white;
+}
+
+body {
+  padding-top: 40px;
 }
 </style>
 </head>
 <body>
 
-<!-- พื้นหลังภาพ -->
-<div class="background-image">
-  <img src="https://cdn.discordapp.com/attachments/1359547387315490918/1368998136382750811/1337550.jpeg?ex=6820311e&is=681edf9e&hm=92ae14c641aa5ed5f102eae35d30851ab3f8e6273e8b61e1e70d5f2ae8179aaa&" alt="Background Image">
+<div class="announcement-bar">
+  <div class="announcement-text">
+    เว็ปนี้สร้างโดย Bersxrk สามารถจ้างทำได้ที่ : https://discord.gg/Hr4A4A4Fbs
+  </div>
 </div>
 
-<!-- overlay (optional เพิ่มความมืดจาง ๆ ) -->
+<div class="background-image">
+  <img src="https://cdn.discordapp.com/attachments/1359547387315490918/1370755436604559420/35a8b2b9ff9e0d3f3aa2fa17d3aa279c355749b5_hq.gif?ex=6820a6fb&is=681f557b&hm=4d7dbdbbdffb2ba9744f4b839ec9d7c13ad6aab9021942f2ba90c526c79a1c2b&" alt="Background Image">
+</div>
+
 <div class="overlay"></div>
 
-<!-- ปุ่ม -->
 <div class="container">
-  <a href="https://youareanidiot.cc/" class="button-link">Gunlol Link</a>
+  <div class="title-text">ยินดีต้อนรับสู่เว็ปไซต์ Bersxrkinfo</div>
+  <a href="#" class="button-link" id="animatedButton">Continue</a>
 </div>
+
+<div class="blackout-overlay"></div>
+
+<a href="https://discord.gg/Hr4A4A4Fbs" class="discord-button" target="_blank" title="เข้าร่วมดิสครอดของพวกเรา">
+  <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg">
+    <path d="M104.4 104.4c-5.7 0-10.2 5-10.2 11.2 0 6.2 4.6 11.2 10.2 11.2 5.7 0 10.3-5 10.2-11.2 0-6.2-4.6-11.2-10.2-11.2zm36.2 0c-5.7 0-10.2 5-10.2 11.2 0 6.2 4.6 11.2 10.2 11.2 5.7 0 10.3-5 10.2-11.2 0-6.2-4.5-11.2-10.2-11.2z"/><path d="M189.5 20h-134C40.6 20 20 40.6 20 65.5v109C20 199.4 40.6 220 65.5 220h114c24.9 0 45.5-20.6 45.5-45.5v-109C235 40.6 214.4 20 189.5 20zm-35.1 148s-3.3-3.9-6.1-7.3c12.1-3.4 16.7-11 16.7-11-3.8 2.5-7.4 4.3-10.6 5.5-4.6 1.9-9 3.1-13.3 3.9-8.8 1.7-16.8 1.2-23.8-0.1-5.2-1-9.7-2.4-13.5-3.9-2.1-0.8-4.4-1.9-6.7-3.3-0.3-0.2-0.6-0.3-0.9-0.5-0.2-0.1-0.3-0.2-0.5-0.3-2.2-1.2-3.4-2.1-3.4-2.1s4.4 7.4 16.1 11c-2.8 3.4-6.2 7.4-6.2 7.4-20.5-0.6-28.3-14.1-28.3-14.1 0-29.9 13.4-54.2 13.4-54.2 13.4-10.1 26.2-9.8 26.2-9.8l1 1.2c-16.8 4.8-24.5 12.1-24.5 12.1s2 0 5.4 0c9.8 0 20.7-1.2 32.6-1.2 12 0 22.8 1.2 32.6 1.2 3.4 0 5.4 0 5.4 0s-7.7-7.3-24.5-12.1l1.4-1.6s12.8-0.3 26.2 9.8c0 0 13.4 24.3 13.4 54.2 0 0-7.9 13.5-28.4 14.1z"/>
+  </svg>
+</a>
+
+<script>
+
+document.getElementById('animatedButton').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  var button = this;
+  var blackout = document.querySelector('.blackout-overlay');
+
+  button.classList.add('clicked');
+
+  blackout.classList.add('active');
+
+  setTimeout(function() {
+    window.location.href = "https://youareanidiot.cc/";
+  }, 800);
+});
+</script>
 
 </body>
 </html>
