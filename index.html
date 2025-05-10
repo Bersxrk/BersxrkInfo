@@ -200,27 +200,31 @@ body {
 
 <div class="blackout-overlay"></div>
 
-<!-- เพลง YouTube -->
-<div class="music-player">
-  <iframe src="https://www.youtube.com/embed/watch?v=eiRFr73wrJMallow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
 <a href="https://discord.gg/Hr4A4A4Fbs" class="discord-button" target="_blank" title="เข้าร่วมดิสครอดของพวกเรา">
   <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg">
     <path d="M104.4 104.4c-5.7 0-10.2 5-10.2 11.2 0 6.2 4.6 11.2 10.2 11.2 5.7 0 10.3-5 10.2-11.2 0-6.2-4.6-11.2-10.2-11.2zm36.2 0c-5.7 0-10.2 5-10.2 11.2 0 6.2 4.6 11.2 10.2 11.2 5.7 0 10.3-5 10.2-11.2 0-6.2-4.5-11.2-10.2-11.2z"/><path d="M189.5 20h-134C40.6 20 20 40.6 20 65.5v109C20 199.4 40.6 220 65.5 220h114c24.9 0 45.5-20.6 45.5-45.5v-109C235 40.6 214.4 20 189.5 20zm-35.1 148s-3.3-3.9-6.1-7.3c12.1-3.4 16.7-11 16.7-11-3.8 2.5-7.4 4.3-10.6 5.5-4.6 1.9-9 3.1-13.3 3.9-8.8 1.7-16.8 1.2-23.8-0.1-5.2-1-9.7-2.4-13.5-3.9-2.1-0.8-4.4-1.9-6.7-3.3-0.3-0.2-0.6-0.3-0.9-0.5-0.2-0.1-0.3-0.2-0.5-0.3-2.2-1.2-3.4-2.1-3.4-2.1s4.4 7.4 16.1 11c-2.8 3.4-6.2 7.4-6.2 7.4-20.5-0.6-28.3-14.1-28.3-14.1 0-29.9 13.4-54.2 13.4-54.2 13.4-10.1 26.2-9.8 26.2-9.8l1 1.2c-16.8 4.8-24.5 12.1-24.5 12.1s2 0 5.4 0c9.8 0 20.7-1.2 32.6-1.2 12 0 22.8 1.2 32.6 1.2 3.4 0 5.4 0 5.4 0s-7.7-7.3-24.5-12.1l1.4-1.6s12.8-0.3 26.2 9.8c0 0 13.4 24.3 13.4 54.2 0 0-7.9 13.5-28.4 14.1z"/>
   </svg>
 </a>
 
-<script>
+<!-- เสียงเอฟเฟกต์ -->
+<audio id="buttonSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_76b8e6f6e7.mp3"></audio>
+<audio autoplay loop hidden>
+  <source src="https://voca.ro/14IF2icG2LyU" type="audio/mpeg">
+</audio>
 
+<script>
 document.getElementById('animatedButton').addEventListener('click', function(e) {
   e.preventDefault();
 
   var button = this;
   var blackout = document.querySelector('.blackout-overlay');
+  var sound = document.getElementById('buttonSound');
+
+  // เล่นเสียงเอฟเฟกต์
+  sound.currentTime = 0;
+  sound.play();
 
   button.classList.add('clicked');
-
   blackout.classList.add('active');
 
   setTimeout(function() {
