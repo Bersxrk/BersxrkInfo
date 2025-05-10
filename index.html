@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ปุ่มอนิเมชัน พร้อมพื้นหลังภาพโปร่งใส</title>
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* container ภาพพื้นหลัง */
+.background-image {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* ภาพพื้นหลัง */
+.background-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1; /* <<<<< ปรับ Transparency ของภาพ (0-1) */
+}
+
+/* overlay เพิ่มความมืดจาง ๆ */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.2); /* สีดำโปร่งใส (optional) */
+  z-index: -1;
+}
+
+/* ปุ่มอยู่กลางจอ */
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* ปุ่ม */
+.button-link {
+  padding: 14px 28px;
+  background-color: #005ec2;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 19px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  animation: pulse 2s infinite;
+}
+
+/* อนิเมชัน pulse */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* hover ขยายเพิ่ม */
+.button-link:hover {
+  background-color: #004c9e;
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+
+<!-- พื้นหลังภาพ -->
+<div class="background-image">
+  <img src="https://cdn.discordapp.com/attachments/1359547387315490918/1368998136382750811/1337550.jpeg?ex=6820311e&is=681edf9e&hm=92ae14c641aa5ed5f102eae35d30851ab3f8e6273e8b61e1e70d5f2ae8179aaa&" alt="Background Image">
+</div>
+
+<!-- overlay (optional เพิ่มความมืดจาง ๆ ) -->
+<div class="overlay"></div>
+
+<!-- ปุ่ม -->
+<div class="container">
+  <a href="https://youareanidiot.cc/" class="button-link">Gunlol Link</a>
+</div>
+
+</body>
+</html>
