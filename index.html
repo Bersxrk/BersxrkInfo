@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Bersxrkinfo</title>
+
+<!-- โหลดฟอนต์ Mali จาก Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Mali', sans-serif; /* เปลี่ยนเป็น Mali */
+  position: relative;
+  overflow: hidden;
+}
+.announcement-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+  padding: 8px 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.announcement-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scrollText 10s linear infinite;
+  font-family: 'Mali', sans-serif; /* เปลี่ยนเป็น Mali */
+  font-weight: 600;
+  font-size: 19px;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.background-image {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.background-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+  z-index: -1;
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  text-align: center;
+  color: white;
+}
+
+.title-text {
+  font-family: 'Mali', sans-serif; /* เปลี่ยนเป็น Mali */
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  animation: electricGlow 1.5s infinite alternate;
+}
+
+.button-link {
+  font-family: 'Mali', sans-serif; /* เปลี่ยนเป็น Mali */
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #005ec2, #003b88);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 2px solid #ffffff44;
+}
+
+.button-link:hover {
+  background: linear-gradient(135deg, #004c9e, #002f6c);
+  transform: scale(1.12);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.blackout-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.blackout-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.blackout-text {
+  color: white;
+  font-family: 'Mali', sans-serif; /* เปลี่ยนเป็น Mali */
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInText 0.8s forwards;
+}
+
+@keyframes fadeInText {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+body {
+  padding-top: 40px;
+}
+
+.music-player {
+  margin-top: 20px;
+}
+
+.music-player iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+}
+</style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  <div class="announcement-text">
+    เว็ปนี้สร้างโดย Bersxrk สามารถจ้างทำได้ที่ : https://discord.gg/Hr4A4A4Fbs
+  </div>
+</div>
+
+<div class="background-image">
+  <img src="https://gifdb.com/images/high/lofi-bedroom-rainy-night-613eak0dexjdsjus.gif" alt="Background Image">
+</div>
+
+<div class="overlay"></div>
+
+<div class="container">
+  <div class="title-text">ยินดีต้อนรับสู่เว็ปไซต์ Bersxrkinfo</div>
+  <a href="#" class="button-link" id="animatedButton">Continue</a>
+</div>
+
+<div class="blackout-overlay">
+  <div class="blackout-text" id="blackoutText">เรียบร้อยโดนกูดักไอโง่</div>
+  <img id="blackoutImage" src="https://cdn.discordapp.com/attachments/1330548027538145331/1371065210785497190/a19a552c02f411ca4950f384e2d35c96-removebg-preview.png?ex=6821c77b&is=682075fb&hm=2dabf05f3df6f3712d9e74ab5ec54d2ab3d44c1bc7191bc649f4624d4a3e8770&" alt="Surprise Image" style="display: none; max-width: 50%; border-radius: 12px; box-shadow: 0 0 15px rgba(255,255,255,0.6); margin-top: 20px;">
+</div>
+
+<!-- เสียงเอฟเฟกต์ -->
+<audio id="buttonSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_76b8e6f6e7.mp3" preload="auto"></audio>
+
+<!-- เสียงพื้นหลัง -->
+<audio id="backgroundMusic" autoplay loop>
+  <source src="https://www.mixcloud.com/%E0%B8%98%E0%B8%99%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%93-%E0%B8%AD%E0%B8%94%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%97%E0%B8%98/%E0%B8%A1%E0%B8%81%E0%B8%81%E0%B8%9D%E0%B8%87-%E0%B8%9C%E0%B8%94%E0%B8%AB%E0%B8%A7%E0%B8%87%E0%B9%84%E0%B8%94%E0%B9%84%E0%B8%87by%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3-%E0%B8%98%E0%B8%99%E0%B8%9E%E0%B8%A5/.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.getElementById('animatedButton').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  var blackout = document.querySelector('.blackout-overlay');
+  var blackoutText = document.getElementById('blackoutText');
+  var blackoutImage = document.getElementById('blackoutImage');
+  var buttonSound = document.getElementById('buttonSound');
+  var backgroundMusic = document.getElementById('backgroundMusic');
+
+  // เล่นเสียงเอฟเฟกต์
+  buttonSound.currentTime = 0;
+  buttonSound.play();
+
+  // เล่นเพลงพื้นหลัง
+  backgroundMusic.play();
+
+  // แสดงหน้าดำและข้อความ
+  blackout.classList.add('active');
+  blackoutText.style.opacity = '1';
+
+  // แสดงภาพหลัง 0.2 วินาที
+  setTimeout(function() {
+    blackoutImage.style.display = 'block';
+    blackoutImage.style.animation = 'fadeInImg 0.6s ease forwards';
+  }, 200);
+
+  // เปลี่ยนหน้าเว็บหลัง 2.2 วินาที
+  setTimeout(function() {
+    window.location.href = "https://theannoyingsite.com/";
+  }, 2200);
+});
+
+// อนิเมชั่นเฟดอินของภาพ
+var style = document.createElement('style');
+style.innerHTML = `
+@keyframes fadeInImg {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
